@@ -64,7 +64,7 @@ sum IT if X == 2
 reg Y_i d if X == 3
 sum IT if X == 3
 
-**# Question 2
+**# Question 2 
 
 clear all
 
@@ -119,11 +119,9 @@ forvalues i = 0/1{
 }
 
 
-	sum Y if D == 0 & X == 1
-	local d0 : display %8.7f r(mean) 
-display `d0'
 reg Y X##D
-
+eststo m1 
+esttab m1 using "$data\Q2.tex", p replace
 
 
 **# Question 3
@@ -187,6 +185,7 @@ forvalues i = 1/1000{
 frame change measures 
 
 hist measures, xline(`tao')
+graph export "$pics\densities2RI.png", replace 
 
 gen count = `tao' < measures
 
@@ -229,4 +228,10 @@ forvalues i = 1/1000{
 
 frame change measures
 
-hist measures 
+hist measures, xline(`tao')
+graph export "$pics\densities2Boot.png", replace 
+
+gen count = 0 < measures
+
+count if count == 1
+display r(N)/1000
