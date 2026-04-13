@@ -230,3 +230,8 @@ frame change measures
 
 hist measures, xline(`tao')
 graph export "$pics\densities2Boot.png", replace 
+
+gen count = 0 < measures
+
+count if count == 1
+display r(N)/1000
